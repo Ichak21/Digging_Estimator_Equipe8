@@ -29,15 +29,19 @@ class TeamComposition:
 
 
 class DiggingEstimator:
+    MAX_ROTATION = 2
+    LIMIT_LENGTH = 0
+    LIMIT_DAYS = 0
+
     def average_per_day(self, lg, dys):
         return math.floor(lg / dys)
 
     def tunnel(self, length, days, rock_type):
         dig_per_rotation = self.get(rock_type)
         max_dig_per_rotation = dig_per_rotation[len(dig_per_rotation) - 1]
-        max_dig_per_day = 2 * max_dig_per_rotation
+        max_dig_per_day = self.MAX_ROTATION * max_dig_per_rotation
 
-        if math.floor(length) != length or math.floor(days) != days or length < 0 or days < 0:
+        if math.floor(length) != length or math.floor(days) != days or length < self.LIMIT_LENGTH or days < self.LIMIT_DAYS:
             raise InvalidFormatException()
         if self.average_per_day(length, days) > max_dig_per_day:
             raise TunnelTooLongForDelayException()
@@ -45,11 +49,11 @@ class DiggingEstimator:
         composition = TeamComposition()
 
         # Miners
-        for i in range(0, len(dig_per_rotation)-1):
+        for i in range(0, len(dig_per_rotation) -1):
             if dig_per_rotation[i] < self.average_per_day(length, days):
                 composition.day_team.miners += 1
 
-        if self.average_per_day(length, days) > max_dig_per_rotation:
+        if max_dig_per_rotation < self.average_per_day(length, days):
             for i in range(0, len(dig_per_rotation) -1):
                 if dig_per_rotation[i] + max_dig_per_rotation < self.average_per_day(length, days):
                     composition.night_team.miners += 1

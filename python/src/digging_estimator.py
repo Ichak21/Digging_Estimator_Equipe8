@@ -29,6 +29,9 @@ class TeamComposition:
 
 
 class DiggingEstimator:
+    def average_per_day(self, lg, dys):
+        return math.floor(lg / dys)
+
     def tunnel(self, length, days, rock_type):
         dig_per_rotation = self.get(rock_type)
         max_dig_per_rotation = dig_per_rotation[len(dig_per_rotation) - 1]
@@ -36,55 +39,48 @@ class DiggingEstimator:
 
         if math.floor(length) != length or math.floor(days) != days or length < 0 or days < 0:
             raise InvalidFormatException()
-        if math.floor(length / days) > max_dig_per_day:
+        if self.average_per_day(length, days) > max_dig_per_day:
             raise TunnelTooLongForDelayException()
 
         composition = TeamComposition()
 
         # Miners
         for i in range(0, len(dig_per_rotation)-1):
-            if dig_per_rotation[i] < math.floor(length / days):
+            if dig_per_rotation[i] < self.average_per_day(length, days):
                 composition.day_team.miners += 1
 
-        if math.floor(length / days) > max_dig_per_rotation:
+        if self.average_per_day(length, days) > max_dig_per_rotation:
             for i in range(0, len(dig_per_rotation) -1):
-                if dig_per_rotation[i] + max_dig_per_rotation < math.floor(length / days):
+                if dig_per_rotation[i] + max_dig_per_rotation < self.average_per_day(length, days):
                     composition.night_team.miners += 1
 
         dt = composition.day_team
         nt = composition.night_team
 
+        #DAY TIME
         if dt.miners > 0:
             dt.healers += 1
-            dt.smithies += 1
-            dt.smithies += 1
-
-        if nt.miners > 0:
-            nt.healers += 1
-            nt.smithies += 1
-            nt.smithies += 1
-
-        if nt.miners > 0:
-            nt.lighters = nt.miners + 1
-
-        if dt.miners > 0:
+            dt.smithies += 2
             dt.inn_keepers = math.ceil((dt.miners + dt.healers + dt.smithies) / 4.0) * 4
             dt.washers = math.ceil((dt.miners + dt.healers + dt.smithies + dt.inn_keepers) / 10.0)
 
+        #NIGHT TIME
         if nt.miners > 0:
-            nt.inn_keepers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4.0) * 4
+            nt.healers += 1
+            nt.smithies += 2
+            nt.lighters = nt.miners + 1                        
+            nt.inn_keepers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4.0) * 4            
+            while True:
+                old_washers = nt.washers
+                old_guards = nt.guards
+                old_chief_guard = nt.guard_managers
 
-        while True:
-            old_washers = nt.washers
-            old_guards = nt.guards
-            old_chief_guard = nt.guard_managers
+                nt.washers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.inn_keepers + nt.lighters + nt.guards + nt.guard_managers) / 10.0)
+                nt.guards = math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3.0)
+                nt.guard_managers = math.ceil((nt.guards) / 3.0)
 
-            nt.washers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.inn_keepers + nt.lighters + nt.guards + nt.guard_managers) / 10.0)
-            nt.guards = math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3.0)
-            nt.guard_managers = math.ceil((nt.guards) / 3.0)
-
-            if old_washers == nt.washers and old_guards == nt.guards and old_chief_guard == nt.guard_managers:
-                break
+                if old_washers == nt.washers and old_guards == nt.guards and old_chief_guard == nt.guard_managers:
+                    break
 
         composition.total = dt.miners + dt.washers + dt.healers + dt.smithies + dt.inn_keepers + nt.miners + nt.washers + nt.healers + nt.smithies + nt.inn_keepers + nt.guards + nt.guard_managers + nt.lighters
 

@@ -36,6 +36,39 @@ class DiggingEstimator:
     def average_per_day(self, lg, dys):
         return math.floor(lg / dys)
 
+    def day_shift_handling(self, composition):
+        self.composition = TeamComposition()
+        day_shift = composition.day_team
+        #DAY TIME
+        if day_shift.miners > 0:
+            day_shift.healers += 1
+            day_shift.smithies += 2
+            day_shift.inn_keepers = math.ceil((day_shift.miners + day_shift.healers + day_shift.smithies) / 4.0) * 4
+            day_shift.washers = math.ceil((day_shift.miners + day_shift.healers + day_shift.smithies + day_shift.inn_keepers) / 10.0)
+        return day_shift
+
+    def night_shift_handling(self, composition):
+        self.composition = TeamComposition()
+        night_shift = composition.night_team
+        #NIGHT TIME
+        if night_shift.miners > 0:
+            night_shift.healers += 1
+            night_shift.smithies += 2
+            night_shift.lighters = night_shift.miners + 1                        
+            night_shift.inn_keepers = math.ceil((night_shift.miners + night_shift.healers + night_shift.smithies + night_shift.lighters) / 4.0) * 4            
+            while True:
+                old_washers = night_shift.washers
+                old_guards = night_shift.guards
+                old_chief_guard = night_shift.guard_managers
+
+                night_shift.washers = math.ceil((night_shift.miners + night_shift.healers + night_shift.smithies + night_shift.inn_keepers + night_shift.lighters + night_shift.guards + night_shift.guard_managers) / 10.0)
+                night_shift.guards = math.ceil((night_shift.healers + night_shift.miners + night_shift.smithies + night_shift.lighters + night_shift.washers) / 3.0)
+                night_shift.guard_managers = math.ceil((night_shift.guards) / 3.0)
+
+                if old_washers == night_shift.washers and old_guards == night_shift.guards and old_chief_guard == night_shift.guard_managers:
+                    break
+        return night_shift
+
     def tunnel(self, length, days, rock_type):
         dig_per_rotation = self.get(rock_type)
         max_dig_per_rotation = dig_per_rotation[len(dig_per_rotation) - 1]
@@ -52,41 +85,15 @@ class DiggingEstimator:
         for i in range(0, len(dig_per_rotation) -1):
             if dig_per_rotation[i] < self.average_per_day(length, days):
                 composition.day_team.miners += 1
-
-        if max_dig_per_rotation < self.average_per_day(length, days):
-            for i in range(0, len(dig_per_rotation) -1):
+                
+            if max_dig_per_rotation < self.average_per_day(length, days):
                 if dig_per_rotation[i] + max_dig_per_rotation < self.average_per_day(length, days):
                     composition.night_team.miners += 1
 
-        dt = composition.day_team
-        nt = composition.night_team
+        day_shift = self.day_shift_handling(composition)
+        night_shift = self.night_shift_handling(composition)        
 
-        #DAY TIME
-        if dt.miners > 0:
-            dt.healers += 1
-            dt.smithies += 2
-            dt.inn_keepers = math.ceil((dt.miners + dt.healers + dt.smithies) / 4.0) * 4
-            dt.washers = math.ceil((dt.miners + dt.healers + dt.smithies + dt.inn_keepers) / 10.0)
-
-        #NIGHT TIME
-        if nt.miners > 0:
-            nt.healers += 1
-            nt.smithies += 2
-            nt.lighters = nt.miners + 1                        
-            nt.inn_keepers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4.0) * 4            
-            while True:
-                old_washers = nt.washers
-                old_guards = nt.guards
-                old_chief_guard = nt.guard_managers
-
-                nt.washers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.inn_keepers + nt.lighters + nt.guards + nt.guard_managers) / 10.0)
-                nt.guards = math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3.0)
-                nt.guard_managers = math.ceil((nt.guards) / 3.0)
-
-                if old_washers == nt.washers and old_guards == nt.guards and old_chief_guard == nt.guard_managers:
-                    break
-
-        composition.total = dt.miners + dt.washers + dt.healers + dt.smithies + dt.inn_keepers + nt.miners + nt.washers + nt.healers + nt.smithies + nt.inn_keepers + nt.guards + nt.guard_managers + nt.lighters
+        composition.total = day_shift.miners + day_shift.washers + day_shift.healers + day_shift.smithies + day_shift.inn_keepers + night_shift.miners + night_shift.washers + night_shift.healers + night_shift.smithies + night_shift.inn_keepers + night_shift.guards + night_shift.guard_managers + night_shift.lighters
 
         return composition
 
@@ -96,6 +103,6 @@ class DiggingEstimator:
         # if you put 1 dwarf, you dig 3m / d / team
         # 2 dwarves = 5.5 m / d / team
         # so a day team on 2 miners and a night team of 1 miner dig 8.5 m / d
-        url = "dtp://research.vin.co/digging-rate/" + rock_type
+        url = "day_shiftp://research.vin.co/digging-rate/" + rock_type
         print("Trying to fetch" + url)
         raise Exception("Does not work in test mode")

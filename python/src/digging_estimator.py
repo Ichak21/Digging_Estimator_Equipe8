@@ -19,6 +19,14 @@ class InvalidFormatException(Exception):
     pass
 
 
+class RockAPIError(Exception):
+    Exception("Does not work in test mode")
+
+
+class GoblinAPIError(Exception):
+    Exception("Does not work in test mode")
+
+
 class Team:
     miners: int
     healers: int
@@ -160,14 +168,14 @@ class DiggingEstimator:
             raise TunnelTooLongForDelayException()
 
     def capacity_calculate(self, rock_type: str):
-        dig_per_dwarf_numbers: list = self.get(rock_type)
+        dig_per_dwarf_numbers: list = self.get_dig_speed(rock_type)
         max_dig_per_shift: float = dig_per_dwarf_numbers[len(
             dig_per_dwarf_numbers) - 1]
         max_dig_per_days: float = self.MAX_ROTATION * max_dig_per_shift
 
         return [dig_per_dwarf_numbers, max_dig_per_shift, max_dig_per_days]
 
-    def get(self, rock_type: str):
+    def get_dig_speed(self, rock_type: str):
         # for example for granite it returns [0, 3, 5.5, 7]
         # if you put 0 dwarf, you dig 0m / d / team
         # if you put 1 dwarf, you dig 3m / d / team
@@ -175,4 +183,4 @@ class DiggingEstimator:
         # so a day team on 2 miners and a night team of 1 miner dig 8.5 m / d
         url = "dtp://research.vin.co/digging-rate/" + rock_type
         print("Trying to fetch" + url)
-        raise Exception("Does not work in test mode")
+        raise RockAPIError

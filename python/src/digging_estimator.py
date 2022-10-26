@@ -2,6 +2,7 @@ import math
 from enum import Enum
 from pickle import FALSE
 from re import T
+from unittest.mock import MagicMock
 
 
 def average_per_day(tunnel_length: int, digging_days: int):
@@ -54,11 +55,11 @@ class Team:
     def set_inn_keepers(self, night_or_day: Shift):
         if night_or_day == Shift.DAY:
             self.inn_keepers = math.ceil(
-                (self.miners + self.healers + self.smithies) / 4.0) * 4
+                (self.miners + self.healers + self.smithies + self.protectors) / 4.0) * 4
 
         elif night_or_day == Shift.NIGHT:
             self.inn_keepers = math.ceil((self.miners + self.healers +
-                                          self.smithies + self.lighters) / 4.0) * 4
+                                          self.smithies + self.lighters + self.protectors) / 4.0) * 4
 
     def set_washers(self, night_or_day: Shift):
         if night_or_day == Shift.DAY:
@@ -67,7 +68,7 @@ class Team:
 
         elif night_or_day == Shift.NIGHT:
             self.washers = math.ceil((self.miners + self.healers + self.smithies + self.inn_keepers +
-                                      self.lighters + self.guards + self.guard_managers) / 10.0)
+                                      self.lighters + self.guards + self.guard_managers + self.protectors) / 10.0)
 
     def night_updater_for_all_guard_and_washer(self):
         previous_washers: int = 0
@@ -76,15 +77,19 @@ class Team:
 
         while not (previous_washers == self.washers and previous_guards == self.guards and previous_guard_manager == self.guard_managers):
 
-            previous_washers = self.washers
-            previous_guards = self.guards
-            previous_guard_manager = self.guard_managers
+            previous_washers: int = self.washers
+            previous_guards: int = self.guards
+            previous_guard_manager: int = self.guard_managers
 
-            self.washers = math.ceil((self.miners + self.healers + self.smithies +
-                                     self.inn_keepers + self.lighters + self.guards + self.guard_managers) / 10.0)
-            self.guards = math.ceil(
-                (self.healers + self.miners + self.smithies + self.lighters + self.washers) / 3.0)
-            self.guard_managers = math.ceil((self.guards) / 3.0)
+            scope_washers: int = self.miners + self.healers + self.smithies + self.inn_keepers + \
+                self.lighters + self.guards + self.guard_managers + self.protectors
+            scope_guards: int = self.healers + self.miners + \
+                self.smithies + self.lighters + self.washers
+            scope_guard_managers: int = self.guards
+
+            self.washers = math.ceil(scope_washers / 10.0)
+            self.guards = math.ceil(scope_guards / 3.0)
+            self.guard_managers = math.ceil(scope_guard_managers / 3.0)
 
     def protector_updater(self, risky_area: bool, night_or_day: Shift = Shift.DAY):
         if risky_area:

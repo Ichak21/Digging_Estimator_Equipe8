@@ -38,6 +38,7 @@ class Team:
     guards: int
     guard_managers: int
     washers: int
+    protectors: int
 
     def __init__(self):
         self.miners = 0
@@ -48,6 +49,7 @@ class Team:
         self.guards = 0
         self.guard_managers = 0
         self.washers = 0
+        self.protectors = 0
 
     def set_inn_keepers(self, night_or_day: Shift):
         if night_or_day == Shift.DAY:
@@ -84,6 +86,12 @@ class Team:
                 (self.healers + self.miners + self.smithies + self.lighters + self.washers) / 3.0)
             self.guard_managers = math.ceil((self.guards) / 3.0)
 
+    def protector_updater(self, risky_area: bool):
+        if risky_area:
+            self.protectors += 2
+        else:
+            pass
+
     def get_head_count(self):
         return self.miners + self.washers + self.healers + self.smithies + self.inn_keepers + self.guards + self.guard_managers + self.lighters
 
@@ -106,25 +114,27 @@ class TeamComposition:
 
         return self
 
-    def day_shift_handling(self):
+    def day_shift_handling(self, local_risk: bool):
         day_shift: Team = self.day_team
 
         if day_shift.miners > 0:
             day_shift.healers += 1
             day_shift.smithies += 2
+            day_shift.protector_updater(local_risk)
             day_shift.set_inn_keepers(Shift.DAY)
             day_shift.set_washers(Shift.DAY)
 
         self.update_head_count()
         return self
 
-    def night_shift_handling(self):
+    def night_shift_handling(self, local_risk: bool):
         night_shift: Team = self.night_team
 
         if night_shift.miners > 0:
             night_shift.healers += 1
             night_shift.smithies += 2
             night_shift.lighters = night_shift.miners + 1
+            night_shift.protector_updater(local_risk)
             night_shift.set_inn_keepers(Shift.NIGHT)
             night_shift.set_washers(Shift.NIGHT)
             night_shift.night_updater_for_all_guard_and_washer()
@@ -143,6 +153,10 @@ class DiggingEstimator:
     MAX_ROTATION: int = 2
     LIMIT_LENGTH: int = 0
     LIMIT_DAYS: int = 0
+    LOCAL_AREA: str
+
+    def __init__(self, local_area: str = ""):
+        self.LOCAL_AREA = local_area
 
     def tunnel(self, tunnel_length, digging_days, rock_type):
 
@@ -157,8 +171,10 @@ class DiggingEstimator:
         composition_for_project: TeamComposition = TeamComposition()
         composition_for_project.define_miners_needed(
             distances_per_dwarf_numbers, tunnel_length, digging_days, max_dig_per_shift)
-        composition_for_project.day_shift_handling()
-        composition_for_project.night_shift_handling()
+
+        local_risk: bool = self.get_goblin_risk()
+        composition_for_project.day_shift_handling(local_risk)
+        composition_for_project.night_shift_handling(local_risk)
 
         return composition_for_project
 
@@ -187,9 +203,13 @@ class DiggingEstimator:
         print("Trying to fetch" + url)
         raise RockAPIError
 
-    def get_goblin_risk(self, local_area: str):
-        risk = "dtp://research.vin.co/are-there-goblins/" + local_area
+    def _call_api_goblin(self, local_area: str):
+        response = "dtp://research.vin.co/are-there-goblins/" + local_area
         raise GoblinAPIError
+        return response
+
+    def get_goblin_risk(self):
+        risk = self._call_api_goblin(self.LOCAL_AREA)
 
         if risk == True:
             return True

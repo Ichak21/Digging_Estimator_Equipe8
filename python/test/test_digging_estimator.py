@@ -1,5 +1,3 @@
-from logging import exception
-from tokenize import Triple
 from unittest.mock import MagicMock
 import pytest
 from src.digging_estimator import TunnelTooLongForDelayException

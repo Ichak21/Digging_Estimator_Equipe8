@@ -1,0 +1,182 @@
+2022-10-26 17:09:05,696: Running clean trial
+============================= test session starts =============================
+platform win32 -- Python 3.10.2, pytest-7.1.3, pluggy-1.0.0
+rootdir: D:\_DevWorkspace\_Ynov\MethodoTest\evaliGit\Digging_Estimator_Equipe8\python
+plugins: cov-4.0.0
+collected 20 items
+
+test\test_digging_estimator.py ....................                      [100%]
+
+============================= 20 passed in 0.09s ==============================
+2022-10-26 17:09:06,109: [92m73 mutation targets found in src\digging_estimator.py AST.[0m
+2022-10-26 17:09:06,110: [93m0 mutation targets found in src\__init__.py AST.[0m
+2022-10-26 17:09:06,110: Setting random.seed to: 304
+2022-10-26 17:09:06,114: Total sample space size: 73
+2022-10-26 17:09:06,114: [92mSelecting 10 locations from 73 potentials.[0m
+2022-10-26 17:09:06,114: Starting individual mutation trials!
+2022-10-26 17:09:06,114: Running serial (single processor) dispatch mode.
+2022-10-26 17:09:06,114: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=77, col_offset=37, op_type=<class 'ast.Div'>, end_lineno=77, end_col_offset=70)
+2022-10-26 17:09:06,575: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:07,037: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:07,524: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:07,970: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:08,455: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:08,898: [92mResult: Detected at src\digging_estimator.py: (77, 37)[0m
+2022-10-26 17:09:08,898: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=108, col_offset=15, op_type=<class 'ast.Add'>, end_lineno=108, end_col_offset=41)
+2022-10-26 17:09:09,531: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:09,974: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:10,609: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:11,057: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:11,677: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:12,155: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:12,155: Current target location: digging_estimator.py, LocIndex(ast_class='AugAssign', lineno=160, col_offset=16, op_type='AugAssign_Add', end_lineno=160, end_col_offset=43)
+2022-10-26 17:09:12,584: [92mResult: Detected at src\digging_estimator.py: (160, 16)[0m
+2022-10-26 17:09:13,016: [92mResult: Detected at src\digging_estimator.py: (160, 16)[0m
+2022-10-26 17:09:13,493: [92mResult: Detected at src\digging_estimator.py: (160, 16)[0m
+2022-10-26 17:09:13,493: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=191, col_offset=34, op_type=<class 'ast.Mult'>, end_lineno=191, end_col_offset=71)
+2022-10-26 17:09:14,023: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:14,620: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:15,214: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:15,780: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:16,246: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:16,799: [92mResult: Detected at src\digging_estimator.py: (191, 34)[0m
+2022-10-26 17:09:16,799: Current target location: digging_estimator.py, LocIndex(ast_class='BoolOp', lineno=181, col_offset=15, op_type=<class 'ast.And'>, end_lineno=181, end_col_offset=122)
+2022-10-26 17:09:17,278: [92mResult: Detected at src\digging_estimator.py: (181, 15)[0m
+2022-10-26 17:09:17,278: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=64, col_offset=33, op_type=<class 'ast.Add'>, end_lineno=65, end_col_offset=28)
+2022-10-26 17:09:17,724: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:18,347: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:18,940: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:19,576: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:20,028: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:20,510: [92mResult: Detected at src\digging_estimator.py: (64, 33)[0m
+2022-10-26 17:09:20,510: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=108, col_offset=15, op_type=<class 'ast.Add'>, end_lineno=108, end_col_offset=91)
+2022-10-26 17:09:21,142: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:21,727: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:22,201: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:22,788: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:23,265: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:23,711: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:23,711: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=130, col_offset=15, op_type=<class 'ast.Add'>, end_lineno=130, end_col_offset=76)
+2022-10-26 17:09:24,186: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:24,632: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:25,118: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:25,556: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:25,988: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:26,458: [92mResult: Detected at src\digging_estimator.py: (130, 15)[0m
+2022-10-26 17:09:26,458: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=108, col_offset=15, op_type=<class 'ast.Add'>, end_lineno=108, end_col_offset=127)
+2022-10-26 17:09:26,895: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:27,376: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:27,966: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:28,595: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:29,037: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:29,665: [92mResult: Detected at src\digging_estimator.py: (108, 15)[0m
+2022-10-26 17:09:29,665: Current target location: digging_estimator.py, LocIndex(ast_class='BinOp', lineno=222, col_offset=14, op_type=<class 'ast.Add'>, end_lineno=222, end_col_offset=37)
+2022-10-26 17:09:30,144: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:30,578: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:31,009: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:31,493: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:31,935: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:32,420: [92mResult: Detected at src\digging_estimator.py: (222, 14)[0m
+2022-10-26 17:09:32,422: Running clean trial
+============================= test session starts =============================
+platform win32 -- Python 3.10.2, pytest-7.1.3, pluggy-1.0.0
+rootdir: D:\_DevWorkspace\_Ynov\MethodoTest\evaliGit\Digging_Estimator_Equipe8\python
+plugins: cov-4.0.0
+collected 20 items
+
+test\test_digging_estimator.py ....................                      [100%]
+
+============================= 20 passed in 0.08s ==============================
+2022-10-26 17:09:32,795: CLI Report:
+
+Mutatest diagnostic summary
+===========================
+ - Source location: D:\_DevWorkspace\_Ynov\MethodoTest\evaliGit\Digging_Estimator_Equipe8\python\src
+ - Test commands: ['pytest']
+ - Mode: s
+ - Excluded files: []
+ - N locations input: 10
+ - Random seed: 304
+
+Random sample details
+---------------------
+ - Total locations mutated: 10
+ - Total locations identified: 73
+ - Location sample coverage: 13.70 %
+
+
+Running time details
+--------------------
+ - Clean trial 1 run time: 0:00:00.408758
+ - Clean trial 2 run time: 0:00:00.371889
+ - Mutation trials total run time: 0:00:26.315170
+
+2022-10-26 17:09:32,795: Trial Summary Report:
+
+Overall mutation trial summary
+==============================
+ - DETECTED: 52
+ - TOTAL RUNS: 52
+ - RUN DATETIME: 2022-10-26 17:09:32.794711
+
+2022-10-26 17:09:32,795: Detected mutations:[92m
+
+DETECTED
+--------
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 64, c: 33) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.Add'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 77, c: 37) - mutation from <class 'ast.Div'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 108, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 130, c: 15) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 160, c: 16) - mutation from AugAssign_Add to AugAssign_Mult
+ - src\digging_estimator.py: (l: 160, c: 16) - mutation from AugAssign_Add to AugAssign_Sub
+ - src\digging_estimator.py: (l: 160, c: 16) - mutation from AugAssign_Add to AugAssign_Div
+ - src\digging_estimator.py: (l: 181, c: 15) - mutation from <class 'ast.And'> to <class 'ast.Or'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.Add'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 191, c: 34) - mutation from <class 'ast.Mult'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.Pow'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.Div'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.Mod'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.Sub'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.FloorDiv'>
+ - src\digging_estimator.py: (l: 222, c: 14) - mutation from <class 'ast.Add'> to <class 'ast.Mult'>[0m
+
+2022-10-26 17:09:32,795: Timedout mutations:
+
+2022-10-26 17:09:32,795: Surviving mutations:
+

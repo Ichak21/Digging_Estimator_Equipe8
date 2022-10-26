@@ -1,0 +1,40 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.2, pytest-7.1.3, pluggy-1.0.0 -- C:\Users\ichak\AppData\Local\Programs\Python\Python310\python.exe
+cachedir: .pytest_cache
+rootdir: D:\_DevWorkspace\_Ynov\MethodoTest\evaliGit\Digging_Estimator_Equipe8\python
+plugins: cov-4.0.0
+collecting ... collected 20 items
+
+test/test_digging_estimator.py::test_should_be_Exception_From_Rock_API PASSED [  5%]
+test/test_digging_estimator.py::test_should_be_Exception_From_Goblin_API PASSED [ 10%]
+test/test_digging_estimator.py::test_should_be_Exception_format_for_input PASSED [ 15%]
+test/test_digging_estimator.py::test_should_be_Exception_tunnel_too_long PASSED [ 20%]
+test/test_digging_estimator.py::test_1dwarve_should_dig_3m_by_day_in_granite PASSED [ 25%]
+test/test_digging_estimator.py::test_1shift_1dwarve_should_9_total_dwarves PASSED [ 30%]
+test/test_digging_estimator.py::test_3dwarve_should_dig_7m_by_day_in_granite PASSED [ 35%]
+test/test_digging_estimator.py::test_should_be_48_dwarves_for_2days_28_meters PASSED [ 40%]
+test/test_digging_estimator.py::test_possible_to_have_2shift_in_one_day PASSED [ 45%]
+test/test_digging_estimator.py::test_we_must_have_2_smithies_by_shift PASSED [ 50%]
+test/test_digging_estimator.py::test_we_must_have_1_healers_by_shift PASSED [ 55%]
+test/test_digging_estimator.py::test_we_must_have_1_lighter_by_miners_and_1_lighter_for_camp_for_nightshift PASSED [ 60%]
+test/test_digging_estimator.py::test_we_must_have_1_innkeepers_by_4_dwaves_in_miners_smithies_healers_lighters PASSED [ 65%]
+test/test_digging_estimator.py::test_we_must_have_1_guards_by_3_dwaves_exclude_innkeeper PASSED [ 70%]
+test/test_digging_estimator.py::test_we_must_have_1_guardsManager_by_3_guards PASSED [ 75%]
+test/test_digging_estimator.py::test_we_must_have_1_washer_by_10_dwarves PASSED [ 80%]
+test/test_digging_estimator.py::test_should_be_True_if_area_is_risky PASSED [ 85%]
+test/test_digging_estimator.py::test_should_be_False_if_area_is_safe PASSED [ 90%]
+test/test_digging_estimator.py::test_should_be_2protectors_by_shift_if_there_are_risk PASSED [ 95%]
+test/test_digging_estimator.py::test_should_be_1_by_miners_and_1_for_camps_and_1_by_protector_for_lighters PASSED [100%]
+
+---------- coverage: platform win32, python 3.10.2-final-0 -----------
+Name                             Stmts   Miss  Cover
+----------------------------------------------------
+src\__init__.py                      0      0   100%
+src\digging_estimator.py           154      1    99%
+test\__init__.py                     0      0   100%
+test\test_digging_estimator.py     128      0   100%
+----------------------------------------------------
+TOTAL                              282      1    99%
+
+
+============================= 20 passed in 0.16s ==============================

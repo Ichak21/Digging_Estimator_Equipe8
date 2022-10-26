@@ -29,26 +29,38 @@ class TeamComposition:
 
 
 class DiggingEstimator:
-    def tunnel(self, length, days, rock_type):
-        dig_per_rotation = self.get(rock_type)
-        max_dig_per_rotation = dig_per_rotation[len(dig_per_rotation) - 1]
-        max_dig_per_day = 2 * max_dig_per_rotation
-
-        if math.floor(length) != length or math.floor(days) != days or length < 0 or days < 0:
+    def digging_project_is_possible(self, tunnel_length, digging_days, max_capacity_dig_per_days):
+        if not(isinstance(tunnel_length, int) and tunnel_length > 0 and isinstance(digging_days, int) and digging_days > 0):
             raise InvalidFormatException()
-        if math.floor(length / days) > max_dig_per_day:
+
+        if math.floor(tunnel_length / digging_days) > max_capacity_dig_per_days:
             raise TunnelTooLongForDelayException()
+
+    def capacity_calculate(self, rock_type):
+        dig_per_dwarf_numbers = self.get(rock_type)
+        max_capacity_dig_per_shift = dig_per_dwarf_numbers[len(
+            dig_per_dwarf_numbers) - 1]
+        max_capacity_dig_per_days = 2 * max_capacity_dig_per_shift
+
+        return [dig_per_dwarf_numbers, max_capacity_dig_per_shift, max_capacity_dig_per_days]
+
+    def tunnel(self, length, days, rock_type):
+        dig_per_dwarf_numbers = self.capacity_calculate(rock_type)[0]
+        max_dig_per_rotation = self.capacity_calculate(rock_type)[1]
+        max_dig_per_day = self.capacity_calculate(rock_type)[2]
+
+        self.digging_project_is_possible(length, days, max_dig_per_day)
 
         composition = TeamComposition()
 
         # Miners
-        for i in range(0, len(dig_per_rotation)-1):
-            if dig_per_rotation[i] < math.floor(length / days):
+        for i in range(0, len(dig_per_dwarf_numbers)-1):
+            if dig_per_dwarf_numbers[i] < math.floor(length / days):
                 composition.day_team.miners += 1
 
         if math.floor(length / days) > max_dig_per_rotation:
-            for i in range(0, len(dig_per_rotation) -1):
-                if dig_per_rotation[i] + max_dig_per_rotation < math.floor(length / days):
+            for i in range(0, len(dig_per_dwarf_numbers) - 1):
+                if dig_per_dwarf_numbers[i] + max_dig_per_rotation < math.floor(length / days):
                     composition.night_team.miners += 1
 
         dt = composition.day_team
@@ -68,25 +80,32 @@ class DiggingEstimator:
             nt.lighters = nt.miners + 1
 
         if dt.miners > 0:
-            dt.inn_keepers = math.ceil((dt.miners + dt.healers + dt.smithies) / 4.0) * 4
-            dt.washers = math.ceil((dt.miners + dt.healers + dt.smithies + dt.inn_keepers) / 10.0)
+            dt.inn_keepers = math.ceil(
+                (dt.miners + dt.healers + dt.smithies) / 4.0) * 4
+            dt.washers = math.ceil(
+                (dt.miners + dt.healers + dt.smithies + dt.inn_keepers) / 10.0)
 
         if nt.miners > 0:
-            nt.inn_keepers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4.0) * 4
+            nt.inn_keepers = math.ceil(
+                (nt.miners + nt.healers + nt.smithies + nt.lighters) / 4.0) * 4
 
         while True:
             old_washers = nt.washers
             old_guards = nt.guards
             old_chief_guard = nt.guard_managers
 
-            nt.washers = math.ceil((nt.miners + nt.healers + nt.smithies + nt.inn_keepers + nt.lighters + nt.guards + nt.guard_managers) / 10.0)
-            nt.guards = math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3.0)
+            nt.washers = math.ceil((nt.miners + nt.healers + nt.smithies +
+                                   nt.inn_keepers + nt.lighters + nt.guards + nt.guard_managers) / 10.0)
+            nt.guards = math.ceil(
+                (nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3.0)
             nt.guard_managers = math.ceil((nt.guards) / 3.0)
 
             if old_washers == nt.washers and old_guards == nt.guards and old_chief_guard == nt.guard_managers:
                 break
 
-        composition.total = dt.miners + dt.washers + dt.healers + dt.smithies + dt.inn_keepers + nt.miners + nt.washers + nt.healers + nt.smithies + nt.inn_keepers + nt.guards + nt.guard_managers + nt.lighters
+        composition.total = dt.miners + dt.washers + dt.healers + dt.smithies + dt.inn_keepers + nt.miners + \
+            nt.washers + nt.healers + nt.smithies + nt.inn_keepers + \
+            nt.guards + nt.guard_managers + nt.lighters
 
         return composition
 

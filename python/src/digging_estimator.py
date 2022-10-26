@@ -86,9 +86,11 @@ class Team:
                 (self.healers + self.miners + self.smithies + self.lighters + self.washers) / 3.0)
             self.guard_managers = math.ceil((self.guards) / 3.0)
 
-    def protector_updater(self, risky_area: bool):
+    def protector_updater(self, risky_area: bool, night_or_day: Shift = Shift.DAY):
         if risky_area:
             self.protectors += 2
+            if night_or_day == Shift.NIGHT:
+                self.lighters += 2
         else:
             pass
 
@@ -134,7 +136,7 @@ class TeamComposition:
             night_shift.healers += 1
             night_shift.smithies += 2
             night_shift.lighters = night_shift.miners + 1
-            night_shift.protector_updater(local_risk)
+            night_shift.protector_updater(local_risk, Shift.NIGHT)
             night_shift.set_inn_keepers(Shift.NIGHT)
             night_shift.set_washers(Shift.NIGHT)
             night_shift.night_updater_for_all_guard_and_washer()

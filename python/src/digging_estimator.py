@@ -1,5 +1,7 @@
 import math
 from enum import Enum
+from pickle import FALSE
+from re import T
 
 
 def average_per_day(tunnel_length: int, digging_days: int):
@@ -184,3 +186,12 @@ class DiggingEstimator:
         url = "dtp://research.vin.co/digging-rate/" + rock_type
         print("Trying to fetch" + url)
         raise RockAPIError
+
+    def get_goblin_risk(self, local_area: str):
+        risk = "dtp://research.vin.co/are-there-goblins/" + local_area
+        raise GoblinAPIError
+
+        if risk == True:
+            return True
+        else:
+            return False

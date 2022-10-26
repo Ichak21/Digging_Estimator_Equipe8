@@ -195,3 +195,14 @@ def test_should_be_2protectors_by_shift_if_there_are_risk():
 
     assert nb_dwarves_needed.day_team.protectors == 2
     assert nb_dwarves_needed.night_team.protectors == 2
+
+
+def test_should_be_1_by_miners_and_1_for_camps_and_1_by_protector_for_lighters():
+    dig_estimator_tested = DiggingEstimator("risky_area")
+    dig_estimator_tested.get_dig_speed = MagicMock(return_value=[0, 3, 5.5, 7])
+    dig_estimator_tested._call_api_goblin = MagicMock(return_value=True)
+
+    nb_dwarves_needed = dig_estimator_tested.tunnel(28, 2, "granite")
+
+    assert nb_dwarves_needed.day_team.lighters == 0
+    assert nb_dwarves_needed.night_team.lighters == nb_dwarves_needed.night_team.miners + 1 + 2

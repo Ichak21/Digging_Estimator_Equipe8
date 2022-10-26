@@ -32,6 +32,17 @@ class DiggingEstimator:
     MAX_ROTATION = 2
     LIMIT_LENGTH = 0
     LIMIT_DAYS = 0
+    MINER_INCREMENTOR = 1
+
+    def get(self, rock_type):
+        # for example for granite it returns [0, 3, 5.5, 7]
+        # if you put 0 dwarf, you dig 0m / d / team
+        # if you put 1 dwarf, you dig 3m / d / team
+        # 2 dwarves = 5.5 m / d / team
+        # so a day team on 2 miners and a night team of 1 miner dig 8.5 m / d
+        url = "dtp://research.vin.co/digging-rate/" + rock_type
+        print("Trying to fetch" + url)
+        raise Exception("Does not work in test mode")
 
     def average_per_day(self, lg, dys):
         return math.floor(lg / dys)
@@ -45,7 +56,8 @@ class DiggingEstimator:
             day_shift.smithies += 2
             day_shift.inn_keepers = math.ceil((day_shift.miners + day_shift.healers + day_shift.smithies) / 4.0) * 4
             day_shift.washers = math.ceil((day_shift.miners + day_shift.healers + day_shift.smithies + day_shift.inn_keepers) / 10.0)
-        return day_shift
+        composition.total = self.day_shift_addition(day_shift)
+        return composition.total
 
     def night_shift_handling(self, composition):
         self.composition = TeamComposition()
@@ -67,7 +79,16 @@ class DiggingEstimator:
 
                 if old_washers == night_shift.washers and old_guards == night_shift.guards and old_chief_guard == night_shift.guard_managers:
                     break
-        return night_shift
+        composition.total = self.night_shift_addition(night_shift)
+        return composition.total
+
+    def day_shift_addition(self, team):
+        self.team = Team()
+        return team.miners + team.washers + team.healers + team.smithies + team.inn_keepers
+
+    def night_shift_addition(self, team):
+        self.team = Team()
+        return team.miners + team.washers + team.healers + team.smithies + team.inn_keepers + team.guards + team.guard_managers + team.lighters
 
     def tunnel(self, length, days, rock_type):
         dig_per_rotation = self.get(rock_type)
@@ -84,25 +105,12 @@ class DiggingEstimator:
         # Miners
         for i in range(0, len(dig_per_rotation) -1):
             if dig_per_rotation[i] < self.average_per_day(length, days):
-                composition.day_team.miners += 1
+                composition.day_team.miners += self.MINER_INCREMENTOR
                 
             if max_dig_per_rotation < self.average_per_day(length, days):
                 if dig_per_rotation[i] + max_dig_per_rotation < self.average_per_day(length, days):
-                    composition.night_team.miners += 1
+                    composition.night_team.miners += self.MINER_INCREMENTOR
 
-        day_shift = self.day_shift_handling(composition)
-        night_shift = self.night_shift_handling(composition)        
-
-        composition.total = day_shift.miners + day_shift.washers + day_shift.healers + day_shift.smithies + day_shift.inn_keepers + night_shift.miners + night_shift.washers + night_shift.healers + night_shift.smithies + night_shift.inn_keepers + night_shift.guards + night_shift.guard_managers + night_shift.lighters
+        composition.total = self.day_shift_handling(composition) + self.night_shift_handling(composition)
 
         return composition
-
-    def get(self, rock_type):
-        # for example for granite it returns [0, 3, 5.5, 7]
-        # if you put 0 dwarf, you dig 0m / d / team
-        # if you put 1 dwarf, you dig 3m / d / team
-        # 2 dwarves = 5.5 m / d / team
-        # so a day team on 2 miners and a night team of 1 miner dig 8.5 m / d
-        url = "day_shiftp://research.vin.co/digging-rate/" + rock_type
-        print("Trying to fetch" + url)
-        raise Exception("Does not work in test mode")
